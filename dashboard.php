@@ -18,13 +18,21 @@ if (!isset($_SESSION['user_id'])) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gallery Dashboard</title>
 <link rel="stylesheet" href="css/dashboard.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
 <div class="container">
     <header style="display: flex; justify-content:space-around">
         <div>
-            <h1>Dashboard</h1>
+        <?php if(isset($_SESSION['username'])) { ?>
+            <h2>Welcome <?php echo $_SESSION['username']; ?></h2>
+        <?php } else { ?>
+            <h2>Login</h2>
+        <?php } ?>
+        <?php if (isset($error)) { ?>
+            <div class="error"><?php echo $error; ?></div>
+        <?php } ?>
         </div>
       
         <div>
@@ -43,8 +51,8 @@ if (!isset($_SESSION['user_id'])) {
             <ul>
                 <li><a href="#" class="sidebar-item" data-target="widget1">Dashboard</a></li>
                 <li><a href="#" class="sidebar-item" data-target="widget2">Reports</a></li>
-                <li><a href="#" class="sidebar-item" data-target="widget3">Upload Images</a></li>
-                <li><a href="#" class="sidebar-item" data-target="widget4">Share on Social Media</a></li>
+                <li><a href="#" class="sidebar-item" data-target="widget3"><span class="upload-icon">&#x1F4F7;</span> Upload Images</a></li>
+                <li><a href="#" class="sidebar-item" data-target="widget4">Categories </a></li>
                 <li><a href="#" class="sidebar-item" data-target="widget5">View my Photo</a></li>
                 <li><a href="#" class="sidebar-item" data-target="widget6">All Users Photos</a></li>
                 <li><a href="#" class="sidebar-item" data-target="widget7">Manage My Photos</a></li>
@@ -56,22 +64,22 @@ if (!isset($_SESSION['user_id'])) {
         <div class="dashboard">
             <div class="widget" id="widget1">
                 <h2>Dashboard</h2>
-                <p>Display charts and graphs here....</p>
+                <iframe src="./attach/chart.php" frameborder="0" width="100%" height="100%"></iframe>
             </div>
             <div class="widget" id="widget2">
                 <h2>Reports</h2>
                 <p>Reports content goes here...</p>
             </div>
-            <div class="widget" id="widget3">
+            <div class="widget" id="widget3">               
                 <h2>Upload Images</h2>
-                <iframe src="./attach/upload.php" frameborder="0" width="100%" height="300px"></iframe>
+                <iframe src="./attach/upload.php" frameborder="0" width="100%" height="500px"></iframe>
             </div>
             <div class="widget" id="widget4">
-                <h2>Settings2</h2>
-                <p>Settings2 content goes here...</p>
+                <h2>Photo Category</h2>
+                <iframe src="./attach/category.php" frameborder="0" width="100%" height="100%"></iframe>
             </div>
             <div class="widget" id="widget5">
-                <h2>Settings3</h2>
+                <h2>Chat with a friend</h2>
                 <p>Settings3 content goes here...</p>
             </div>
             <div class="widget" id="widget6">

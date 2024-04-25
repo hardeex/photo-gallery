@@ -20,10 +20,27 @@ CREATE TABLE password_reset_request (
 );
 
 
-#create the images table
+-- #create the images table
+-- CREATE TABLE images (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     image_filename VARCHAR(255) NOT NULL,
+--     image_alt VARCHAR(255),
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+
+
 CREATE TABLE images (
     id INT AUTO_INCREMENT PRIMARY KEY,
     image_filename VARCHAR(255) NOT NULL,
     image_alt VARCHAR(255),
+    description TEXT,
+    category_name VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+CREATE TABLE photo_categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
 );

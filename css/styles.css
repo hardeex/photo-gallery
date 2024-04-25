@@ -56,6 +56,16 @@ section{
     margin: 20px
 }
 
+
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
 /* Filter Gallery Styles */
 .filter-gallery {
     padding: 20px;
@@ -155,10 +165,194 @@ section{
 
 
 
-
-
 h2 {
     text-align: center;
     margin-bottom: 20px;
 }
+/**** Styling the auth system */
+.container {
+    max-width: 450px;
+    margin: 100px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 
+.form-group {
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.upload-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+
+.file-input,
+.category-select,
+.description-textarea,
+.upload-button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.file-input {
+    margin-top: 20px; /* Adjust margin for file input */
+}
+
+.upload-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.upload-button:hover {
+    background-color: #45a049;
+}
+
+/* Optional: Add more styling as needed */
+
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#error {
+    color: red;
+    font-weight: bold;
+}
+
+.error {
+    color: #ff0000; 
+    font-size: 16px; 
+    margin: 10px; 
+}
+
+
+
+.logreg{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.logreg p a {
+    color: #fff; 
+    background-color: darkorange; 
+    padding: 5px 10px; 
+    border-radius: 4px; 
+    text-decoration: none; 
+    transition: background-color 0.3s ease; 
+}
+
+.logreg p a:hover {
+    background-color: #0056b3; 
+}
+
+#logreg{
+    display: flex;
+    justify-content: space-between;
+}
+
+.go-home {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #e4acba;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.go-home:hover {
+    background-color: #9eeca2;
+}
+
+/* Stlying the uploaded images */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.gallery img {
+    width: calc(50% - 10px); 
+    max-width: 100%; 
+    height: auto;
+}
+
+.pagination {
+    margin-top: 20px;
+}
+
+.pagination a {
+    padding: 5px 10px;
+    background-color: #f2f2f2;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    margin-right: 5px;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Media query for responsiveness */
+@media only screen and (min-width: 768px) {
+    .gallery img {
+        width: calc(20% - 16px); 
+        max-width: none; 
+    }
+}
+
+
+/* Categories styling */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Style every even list item */
+li:nth-child(even) {
+    background-color: gray; 
+    color:  white;
+}
+
+/* Style every odd list item */
+li:nth-child(odd) {
+    background-color: white; 
+}
+
+/* Other styles remain the same */
+li {
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
