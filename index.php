@@ -1,5 +1,9 @@
 <?php
+$title = "Photos";
+include 'include/header.php';
 include 'include/config.php';
+
+
 
 // Establish database connection
 $conn = mysqli_connect($config['host'], $config['username'], $config['password'], $config['dbname']);
@@ -10,13 +14,13 @@ if (!$conn) {
 
 // Pagination parameters
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
-$itemsPerPage = 20; // Number of items per page
+$itemsPerPage = 10; // Number of items per page
 
 // Calculate offset
 $offset = ($page - 1) * $itemsPerPage;
 
 // Query to retrieve all images
-$sql = "SELECT * FROM images LIMIT $offset, $itemsPerPage";
+$sql = "SELECT * FROM images ORDER BY created_at DESC LIMIT $offset,  $itemsPerPage" ;
 $result = mysqli_query($conn, $sql);
 
 if (!$result) {
@@ -30,6 +34,7 @@ $categoryResult = mysqli_query($conn, $categorySql);
 if (!$categoryResult) {
     die("Error fetching categories: " . mysqli_error($conn));
 }
+
 
 ?>
 
@@ -53,71 +58,111 @@ if (!$categoryResult) {
     <script src="script.js" defer></script>
 </head>
 
+
 <body>
 
-<header>
+<div class="hero">
     <img src="img/photo-album.jpg" alt="The header image">
     <p> Photo Gallery</p>
-</header>
+</div>
 
 <section>
-    <div class="filter-gallery">
+    <div class="filter-gallery" style="margin-top: 0; padding-top: 0;">
         <div class="access" style="display:flex">
-            <form action="" method="get" class="search-form">
-                <input type="search" name="search" id="search" placeholder="Search...">
-                <button type="submit">Search</button>
-            </form>
+        <form action="search_images.php" method="get" class="search-form">
+            <input type="search" name="search" id="search" placeholder="Search for images...">
+            <button type="submit">Search</button>
+        </form>
 
-            <h2>Category Lists</h2>
-            <select name="category_name" class="category-select" id="category-select">
-                <option value="" disabled selected>Select Category</option>
-                <?php while ($row = mysqli_fetch_assoc($categoryResult)) { ?>
-                    <option value="<?php echo $row['name']; ?>"><?php echo $row['name']; ?></option>
-                <?php } ?>
-            </select>
+
+            <button id="login-btn">Login</button>        
         </div>
+
+        <h2 style="font-size: 20px; margin: 2rem">Category Lists</h2>
+            <select name="category_name" class="category-select" id="category-select" style="width: 100%; max-width: 100%; ">
+                    <option value="" disabled selected>Select Category</option>
+                    <?php while ($row = mysqli_fetch_assoc($categoryResult)) { ?>
+                        <option value="<?php echo $row['name']; ?>"><?php echo $row['name']; ?></option>
+                    <?php } ?>
+            </select>
     </div>
 
-    <h2>Image Gallery</h2>
+
+    <div class="popup" id="login-popup">
+        <div class="popup-content">
+                <span class="close" id="close-login-popup" style="color: red;">&times;</span>
+                <?php include 'login.html' ?>
+            </div>
+        </div>  
+
+<br><br>
+
+    <h2>Images</h2> 
     <div id="image-gallery" class="gallery">
         <?php while ($row = mysqli_fetch_assoc($result)) : ?>
             <img src="./attach/uploads/<?php echo $row['image_filename']; ?>" alt="<?php echo $row['image_alt']; ?>" class="gallery-img">
         <?php endwhile; ?>
     </div>
 
-    <!-- Bootstrap Modal for Image Preview -->
-    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="imageCarousel" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner" id="carousel-inner">
-                            <!-- Images will be loaded dynamically here -->
-                        </div>
-                        <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+  
+<!-- Bootstrap Modal for Image View -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="imageCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <?php 
+                        $first = true;
+                        mysqli_data_seek($result, 0); // Reset the pointer
+                        while ($row = mysqli_fetch_assoc($result)) : ?>
+                            <div class="carousel-item <?php echo $first ? 'active' : ''; ?>">
+                                <img src="./attach/uploads/<?php echo $row['image_filename']; ?>" alt="<?php echo $row['image_alt']; ?>" class="d-block w-100">
+                            </div>
+                        <?php $first = false; endwhile; ?>
                     </div>
+                    <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+</div>
+    <?php
+    // Pagination links
+    $totalImages = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM images"));
+    $totalPages = ceil($totalImages / $itemsPerPage);
+    ?>
+    <div class="pagination">
+        <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+            <a href="?page=<?php echo $i; ?>" <?php echo $i == $page ? 'class="active"' : ''; ?>><?php echo $i; ?></a>
+        <?php endfor; ?>
+    </div>
 
-</body>
-</html>
 
-<script>
+    <script>
+$(document).ready(function(){
+    // Open Bootstrap Modal on Image Click
+    $('.gallery-img').on('click', function(){
+        $('#imageModal').modal('show');
+        var index = $(this).index('.gallery-img');
+        $('#imageCarousel').carousel(index); // Move carousel to clicked image
+    });
+});
+
+
 $(document).ready(function(){
     $('#category-select').change(function(){
         var category = $(this).val();
@@ -136,3 +181,8 @@ $(document).ready(function(){
     });
 });
 </script>
+
+
+</body>
+</html>
+

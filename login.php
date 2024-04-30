@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+$title = "Login";
+include 'include/header.php';
+
 include "include/config.php"; // Include the database configuration file
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -70,6 +73,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a href="register.html">Sign up?</a>
                 <a href="forgot_password.php">Forgot Password</a>
             </div>
+
+            <a href="./index.php" class="go-home">Go Home</a> <br><br>
             <button type="submit">Login</button>
         </form>
        

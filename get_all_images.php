@@ -9,7 +9,7 @@ if (!$conn) {
 }
 
 // Query to retrieve all images
-$sql = "SELECT * FROM images";
+$sql = "SELECT * FROM images ORDER BY created_at DESC";
 $result = mysqli_query($conn, $sql);
 
 if (!$result) {

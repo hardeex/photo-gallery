@@ -8,12 +8,14 @@ if (!$conn) {
     die("Connection error: " . mysqli_connect_error());
 }
 
+
+
 // Check if the category is set and not empty
 if (isset($_POST['category']) && !empty($_POST['category'])) {
     $category = mysqli_real_escape_string($conn, $_POST['category']);
     
     // Query to retrieve images for the selected category
-    $sql = "SELECT * FROM images WHERE category_name = '$category'";
+    $sql = "SELECT * FROM images  WHERE category_name  = '$category' ORDER BY created_at DESC";
     $result = mysqli_query($conn, $sql);
 
     if (!$result) {
@@ -38,3 +40,4 @@ if (isset($_POST['category']) && !empty($_POST['category'])) {
 // Close database connection
 mysqli_close($conn);
 ?>
+
