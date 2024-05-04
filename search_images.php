@@ -26,7 +26,7 @@ include 'include/config.php';
 </head>
 <body>
 
-<div class="spacer"></div> <!-- Add spacing between header and content -->
+<div class="spacer"></div> 
 
 <section>
     <h2>Search Results</h2>
