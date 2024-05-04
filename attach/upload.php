@@ -64,6 +64,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["images"]) && !empty($
 $sql = "SELECT * FROM photo_categories";
 $result = mysqli_query($conn, $sql);
 
+// Check if category_name and description are set in $_POST
+if (isset($_POST["category_name"]) && isset($_POST["description"])) {
+    // Get category and description from the form
+    $category_name = mysqli_real_escape_string($conn, $_POST["category_name"]);
+    $description = mysqli_real_escape_string($conn, $_POST["description"]);
+
+    // Store description in a session variable
+    $_SESSION['image_description'] = $description;
+} else {
+    // Handle the case when category_name or description is not set
+    echo "Please select a category and add a description.";
+}
+
+
 if (!$result) {
     die("Error fetching categories: " . mysqli_error($conn));
 }

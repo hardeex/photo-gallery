@@ -1,4 +1,5 @@
 <?php
+session_start();
 $title = "Photos";
 include 'include/header.php';
 include 'include/config.php';
@@ -30,6 +31,15 @@ if (!$result) {
 // Query to retrieve categories
 $categorySql = "SELECT name FROM photo_categories";
 $categoryResult = mysqli_query($conn, $categorySql);
+
+
+// Retrieve description from session
+$description = isset($_SESSION['image_description']) ? $_SESSION['image_description'] : '';
+//$description = isset($_POST["description"]) ? mysqli_real_escape_string($conn, $_POST["description"]) : '';
+
+// Get category and description from the form
+// $category_name = mysqli_real_escape_string($conn, $_POST["category_name"]);
+// $description = mysqli_real_escape_string($conn, $_POST["description"]);
 
 if (!$categoryResult) {
     die("Error fetching categories: " . mysqli_error($conn));
@@ -97,7 +107,7 @@ if (!$categoryResult) {
 
 <br><br>
 
-    <h2>Images</h2> 
+    <h2> Memories </h2> 
     <div id="image-gallery" class="gallery">
         <?php while ($row = mysqli_fetch_assoc($result)) : ?>
             <img src="./attach/uploads/<?php echo $row['image_filename']; ?>" alt="<?php echo $row['image_alt']; ?>" class="gallery-img">
@@ -110,7 +120,7 @@ if (!$categoryResult) {
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+            <h6 class="modal-title" id="imageModalLabel"><?php echo $description; ?></h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -120,7 +130,7 @@ if (!$categoryResult) {
                     <div class="carousel-inner">
                         <?php 
                         $first = true;
-                        mysqli_data_seek($result, 0); // Reset the pointer
+                        mysqli_data_seek($result, 0); 
                         while ($row = mysqli_fetch_assoc($result)) : ?>
                             <div class="carousel-item <?php echo $first ? 'active' : ''; ?>">
                                 <img src="./attach/uploads/<?php echo $row['image_filename']; ?>" alt="<?php echo $row['image_alt']; ?>" class="d-block w-100">

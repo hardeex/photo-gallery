@@ -49,6 +49,7 @@ if (!isset($_SESSION['user_id'])) {
     <div class="main-content">
         <nav class="sidebar" id="sidebar">
             <ul>
+            <li><a href="#" class="sidebar-item" data-target="widget1">Go Home</a></li>
                 <li><a href="#" class="sidebar-item" data-target="widget1">Dashboard</a></li>
                 <li><a href="#" class="sidebar-item" data-target="widget2">Reports</a></li>
                 <li><a href="#" class="sidebar-item" data-target="widget3"><span class="upload-icon">&#x1F4F7;</span> Upload Images</a></li>

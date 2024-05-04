@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+$title = "Login";
+include 'include/header.php';
+
+include "include/config.php"; //
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +17,8 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
+    <div class="spacer"></div>
     <div class="container">
         <h2>Forgot Password</h2>
         <p>Please enter your email address to reset your password.</p>
@@ -21,7 +33,7 @@
         </form>
         
         <div class="logreg" id="logreg">
-            <a href="login.html">Back to Login</a>
+            <a href="login.php">Back to Login</a>
         </div>
     </div>
 </body>

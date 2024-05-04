@@ -1,3 +1,4 @@
+<!-- No changes here -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,21 +10,23 @@
 <body>
     <header>
         <nav>
-            <div class="logo">Your Logo</div>
+            <div class="logo">
+                <a href="index.php"><img src="./img/gallery.jpg" alt="Gallery Logo" style="width: 75px; height: 75px"></a>
+            </div>
             <div class="menu-toggle" id="menu-toggle">
                 <div class="bar"></div>
                 <div class="bar"></div>
                 <div class="bar"></div>
             </div>
             <ul class="menu" id="menu">
-                <li><a href="">Shutterbird</a></li>
+                <li><a href="https://shutterbirdng.com/" target="_blank">Shutterbird</a></li>
                 <li><a href="index.php">Gallery</a></li>
-                <li><a href="">AfriwoodStreams</a></li>                
-                <li><a href="">File Management</a></li>               
-                <li><a href="">Email</a></li>
-                <li><a href="">Urenna Portfolio</a></li>
-                <li><a href="">Blog</a></li>
-                <li><a href="login.html">Login/Register</a></li>
+                <li><a href="http://afriwoodstreams.com/" target="_blank">AfriwoodStreams</a></li>                
+                <li><a href="https://afriwoodstreams.com/filemanagement/" target="_blank">File Management</a></li>               
+                <li><a href="https://webmail-p35.web-hosting.com/" target="_blank">Email</a></li>
+                <li><a href="http://urennaamadi.com/" target="_blank">Urenna Portfolio</a></li>
+                <li><a href="https://shutterbirdng.com/more.php" target="_blank">Blog</a></li>
+                <li><a href="login.php">My Account</a></li>
             </ul>
         </nav>
     </header>

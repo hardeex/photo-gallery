@@ -1,4 +1,13 @@
+<?php
+session_start();
 
+$title = "Login";
+include 'include/header.php';
+
+include "include/config.php"; // Include the database configuration file
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +17,9 @@
     <link rel="stylesheet" href="css/styles.css">   
 </head>
 <body>
+    <div class="spacer" ></div>
     <div class="container">
-        <h2>Register</h2>
+        <h2>Create Accout</h2>
         <div id="message"></div>
         <form id="registerForm" method="post" action="register.php">
             <div class="form-group">
@@ -35,7 +45,7 @@
             <button type="submit">Register</button>
 
             <div class="logreg">
-                 <p>Have an account? <a href="login.html">Login!</a>.</p>
+                 <p>Have an account? <a href="login.php">Login!</a>.</p>
             </div>
            
         </form>

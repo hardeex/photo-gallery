@@ -54,6 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   </head>
 <body>
+    <div class="spacer" ></div>
     <div class="container">
         <h2>Login</h2>
         <?php if (isset($error)) { ?>
@@ -70,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="logreg" id="logreg" style="margin-bottom: 15px;">
-                <a href="register.html">Sign up?</a>
+                <a href="registerUser.php">Sign up?</a>
                 <a href="forgot_password.php">Forgot Password</a>
             </div>
 
