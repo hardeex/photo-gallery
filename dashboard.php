@@ -23,8 +23,12 @@ if (!isset($_SESSION['user_id'])) {
 <body>
 
 <div class="container">
-    <header style="display: flex; justify-content:space-around">
-        <div>
+<header class="header">
+    <div class="menu-toggle-container" class="menu-span-click" id="menu-span-click1">
+        <span class="menu-toggle" onclick="toggleSidebar()">&#9776;</span>
+    </div>
+
+    <div class="header-item">
         <?php if(isset($_SESSION['username'])) { ?>
             <h2>Welcome <?php echo $_SESSION['username']; ?></h2>
         <?php } else { ?>
@@ -33,19 +37,18 @@ if (!isset($_SESSION['user_id'])) {
         <?php if (isset($error)) { ?>
             <div class="error"><?php echo $error; ?></div>
         <?php } ?>
-        </div>
-      
-        <div>
-            <a href="logout.php"style="background-color: #f44336; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Logout</a>
-        </div>
+    </div>
 
-        <div>
-             <!-- <button class="sidebar-toggle" onclick="toggleSidebar()">Show/Hide Menu</button> -->
-             <span style="font-size: 30px; color: white; cursor: pointer;" onclick="toggleSidebar()">&#9776;</span>
-        </div>
+    <div class="header-item">
+        <a href="logout.php" class="logout-btn">Logout</a>
+    </div>
 
-       
-    </header>
+    <div class="menu-toggle-container" class="menu-span-click" id="menu-span-click2" >
+        <span class="menu-toggle" onclick="toggleSidebar()">&#9776;</span>
+    </div>
+   
+</header>
+
     <div class="main-content">
         <nav class="sidebar" id="sidebar">
             <ul>
@@ -65,11 +68,11 @@ if (!isset($_SESSION['user_id'])) {
         <div class="dashboard">
             <div class="widget" id="widget1">
                 <h2>Dashboard</h2>
-                <iframe src="./attach/chart.php" frameborder="0" width="100%" height="100%"></iframe>
+                <iframe src="./attach/chart.php" frameborder="0" width="100%" height="500px"></iframe>
             </div>
             <div class="widget" id="widget2">
                 <h2>Reports</h2>
-                <p>Reports content goes here...</p>
+                <iframe src="./attach/report.php" frameborder="0" width="100%" height="500px"></iframe>
             </div>
             <div class="widget" id="widget3">               
                 <h2>Upload Images</h2>
@@ -77,7 +80,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
             <div class="widget" id="widget4">
                 <h2>Photo Category</h2>
-                <iframe src="./attach/category.php" frameborder="0" width="100%" height="100%"></iframe>
+                <iframe src="./attach/category.php" frameborder="0" width="100%" height="500px"></iframe>
             </div>
             <div class="widget" id="widget5">
                 <h2>Chat with a friend</h2>

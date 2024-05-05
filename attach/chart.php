@@ -7,9 +7,15 @@ include '../include/config.php';
 // Establish database connection
 $conn = mysqli_connect($config['host'], $config['username'], $config['password'], $config['dbname']);
 
+// Check if the connection was successful
 if (!$conn) {
     die("Connection error: " . mysqli_connect_error());
 }
+
+// Initialize arrays to store data for Chart.js
+$dates = [];
+$totalUploads = [];
+$topUploaders = [];
 
 // Query to retrieve total uploads per day
 $sqlTotalUploads = "SELECT DATE(created_at) AS created_date, COUNT(*) AS total_uploads
@@ -19,43 +25,35 @@ $sqlTotalUploads = "SELECT DATE(created_at) AS created_date, COUNT(*) AS total_u
 
 $resultTotalUploads = mysqli_query($conn, $sqlTotalUploads);
 
+// Check if the query was successful
 if (!$resultTotalUploads) {
     die("Error retrieving total upload data: " . mysqli_error($conn));
 }
 
-// Initialize arrays to store data for Chart.js
-$dates = [];
-$totalUploads = [];
-
 // Process total upload query results
 while ($row = mysqli_fetch_assoc($resultTotalUploads)) {
-    $date = $row['created_date'];
-    $total = $row['total_uploads'];
-
-    // Store date and total uploads
-    $dates[] = $date;
-    $totalUploads[] = $total;
+    $dates[] = $row['created_date'];
+    $totalUploads[] = $row['total_uploads'];
 }
 
 // Query to retrieve top 20 uploader usernames
-$sqlTopUploaders = "SELECT id, COUNT(*) AS total_uploads
-                    FROM images
-                    GROUP BY id
+$sqlTopUploaders = "SELECT i.user_id, COUNT(*) AS total_uploads
+                    FROM images i
+                    INNER JOIN users u ON i.user_id = u.id
+                    GROUP BY i.user_id
                     ORDER BY total_uploads DESC
                     LIMIT 20";
 
 $resultTopUploaders = mysqli_query($conn, $sqlTopUploaders);
 
+// Check if the query was successful
 if (!$resultTopUploaders) {
     die("Error retrieving top uploader data: " . mysqli_error($conn));
 }
 
-// Initialize array to store top uploader usernames
-$topUploaders = [];
-
 // Process top uploader query results
 while ($row = mysqli_fetch_assoc($resultTopUploaders)) {
-    $userId = $row['id'];
+    $userId = $row['user_id'];
     $totalUploads = $row['total_uploads'];
 
     // Query username for user ID
@@ -65,13 +63,9 @@ while ($row = mysqli_fetch_assoc($resultTopUploaders)) {
     // Check if the query was successful
     if ($resultUsername) {
         $usernameRow = mysqli_fetch_assoc($resultUsername);
-        // Check if a username was found
         if ($usernameRow && isset($usernameRow['username'])) {
-            $username = $usernameRow['username'];
-            // Store username and total uploads
-            $topUploaders[] = ['username' => $username, 'total_uploads' => $totalUploads];
+            $topUploaders[] = ['username' => $usernameRow['username'], 'total_uploads' => $totalUploads];
         } else {
-            // Handle case where username is not found
             $topUploaders[] = ['username' => 'Unknown', 'total_uploads' => $totalUploads];
         }
     } else {
@@ -133,9 +127,7 @@ while ($row = mysqli_fetch_assoc($resultTopUploaders)) {
 <ul>
     <?php if (!empty($topUploaders)) : ?>
         <?php foreach ($topUploaders as $uploader) : ?>
-            <?php if (!empty($uploader) && isset($uploader['username'])) : ?>
-                <li><?php echo $uploader['username']; ?> - <?php echo $uploader['total_uploads']; ?> uploads</li>
-            <?php endif; ?>
+            <li><?php echo htmlspecialchars($uploader['username']); ?> - <?php echo $uploader['total_uploads']; ?> uploads</li>
         <?php endforeach; ?>
     <?php else : ?>
         <li>No top uploaders found.</li>

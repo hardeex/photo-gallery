@@ -17,7 +17,6 @@ $conn = mysqli_connect($config['host'], $config['username'], $config['password']
 if (!$conn) {
     die("Connection error: " . mysqli_connect_error());
 }
-
 // Check if the form is submitted and files are uploaded
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["images"]) && !empty($_FILES["images"]["name"][0]) && isset($_POST["category_name"]) && !empty($_POST["category_name"])) {
     $uploadDir = "uploads/"; // Directory where the images will be uploaded
@@ -25,6 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["images"]) && !empty($
     // Get category and description from the form
     $category_name = mysqli_real_escape_string($conn, $_POST["category_name"]);
     $description = mysqli_real_escape_string($conn, $_POST["description"]);
+
+    // Get user ID from the session
+    $user_id = $_SESSION['user_id'];
 
     // Iterate through each uploaded file
     foreach ($_FILES["images"]["tmp_name"] as $key => $tmp_name) {
@@ -40,8 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["images"]) && !empty($
             } else {
                 // Upload the file
                 if (move_uploaded_file($tmp_name, $uploadFile)) {
-                    // Insert file details into database along with category and description
-                    $sql = "INSERT INTO images (image_filename, image_alt, category_name, description) VALUES ('$imageFilename', '$imageAlt', '$category_name', '$description')";
+                    // Insert file details into database along with category, description, and user_id
+                    $sql = "INSERT INTO images (image_filename, image_alt, category_name, description, user_id) VALUES ('$imageFilename', '$imageAlt', '$category_name', '$description', '$user_id')";
                     if (mysqli_query($conn, $sql)) {
                         echo "File uploaded successfully!. <br> ";
                     } else {

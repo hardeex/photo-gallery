@@ -17,12 +17,67 @@ body {
     min-height: 100vh;
 }
 
-header {
+.header {
     background-color: #333;
     color: #fff;
     padding: 20px;
     text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.header-item {
+    flex: 1;
+}
+
+.logout-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.menu-toggle-container {
+    margin-right: 10px; /* Add margin to separate from the edge */
+}
+
+.menu-toggle {
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+#menu-span-click1{
+    display:none
+}
+/* Responsive Styles */
+@media screen and (max-width: 576px) {
+    .header {
+        flex-direction: column;
+    }
+
+    .header-item {
+        width: 100%;
+        margin-bottom: 40px; /* Adjust spacing between items */
+    }
+
+    .menu-toggle-container {
+        align-self: flex-end; /* Align container to the end (top right corner) */
+        margin-right: 20px; /* Add more margin for better spacing */
+    }
+
+    #menu-span-click1{
+        display: block;
+    }
+
+    #menu-span-click2{
+        display: none;
+    }
+}
+
 
 .main-content {
     flex-grow: 1;
@@ -79,7 +134,8 @@ span{
 .dashboard {
     flex-grow: 1;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
+    grid-template-columns: repeat(2, 1fr);
     grid-gap: 20px;
     padding: 20px;
 }
@@ -91,6 +147,9 @@ span{
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
+
+    width: calc(100% - 20px);
+    
 }
 
 .widget h2 {
@@ -108,5 +167,15 @@ span{
 @media screen and (max-width: 576px) {
     .sidebar {
         width: 150px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .dashboard {
+        grid-template-columns: repeat(1, 1fr); /* Single widget per row in mobile view */
+    }
+
+    .widget {
+        width: calc(100% - 20px); /* Single widget per row in mobile view */
     }
 }
