@@ -31,28 +31,30 @@ if (strtotime($user["reset_token_expires_at"]) <= time()) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Password</title>
     <link rel="stylesheet" href="styles.css">
     <script>
-        function validatePassword() {
-            var password = document.getElementById("password").value;
-            var confirmPassword = document.getElementById("confirmPassword").value;
+    function validatePassword() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
 
-            if (password !== confirmPassword) {
-                alert("Passwords do not match");
-                return false;
-            }
-            return true;
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return false;
         }
+        return true;
+    }
     </script>
 </head>
+
 <body>
     <div class="container">
         <h2>Reset Password</h2>
-       
+
         <form action="validate-password-reset.php" method="post" onsubmit="return validatePassword();">
 
             <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
@@ -72,8 +74,9 @@ if (strtotime($user["reset_token_expires_at"]) <= time()) {
         </form>
 
         <div class="logreg" id="logreg">
-            <a href="login.html">Back to Login</a>
+            <a href="login.php">Back to Login</a>
         </div>
     </div>
 </body>
+
 </html>

@@ -4,7 +4,7 @@ session_start();
 $title = "Login";
 include 'include/header.php';
 
-include "include/config.php"; // Include the database configuration file
+include "include/config.php"; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Establish database connection
@@ -43,22 +43,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 
-<!--- Hndling errors from the login.html page-->
+<!--- Hndling errors from the login page-->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="css/styles.css">
 
-  </head>
+</head>
+
 <body>
-    <div class="spacer" ></div>
+    <div class="spacer"></div>
     <div class="container">
         <h2>Login</h2>
         <?php if (isset($error)) { ?>
-            <div class="error"><?php echo $error; ?></div>
+        <div class="error"><?php echo $error; ?></div>
         <?php } ?>
         <form method="post" action="login.php">
             <div class="form-group">
@@ -78,7 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a href="./index.php" class="go-home">Go Home</a> <br><br>
             <button type="submit">Login</button>
         </form>
-       
+
     </div>
 </body>
+
 </html>

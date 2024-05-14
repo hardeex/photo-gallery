@@ -24,7 +24,7 @@ if (empty($errors)) {
     // Check if the password was updated successfully
     if ($stmt->affected_rows > 0) {
         echo "<script>alert('Password Updated. You can now login');</script>";
-        header("Location: login.html");
+        header("Location: login.php");
         exit();
     } else {
         echo "Error updating password.";

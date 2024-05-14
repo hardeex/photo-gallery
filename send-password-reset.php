@@ -28,7 +28,7 @@ if (!$stmt->execute()) {
 // Check if any rows were affected
 if ($mysqli->affected_rows) {
     $mail = require __DIR__ . "/mailer.php";
-    $mail->setFrom("nonreply@shutterbirdng.com/.com");
+    $mail->setFrom("nonreply@shutterbirdng.com.com");
     $mail->addAddress($email);
     $mail->Subject = "Password Reset";
     $mail->isHTML(true);
@@ -41,11 +41,11 @@ if ($mysqli->affected_rows) {
 
     try {
         $mail->send();
-        echo "<script>alert('Password Reset link sent! Please check your inbox'); window.location.href='login.html';</script>";
+        echo "<script>alert('Password Reset link sent! Please check your inbox'); window.location.href='login.php';</script>";
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer error: {$mail->ErrorInfo}";
     }
 } else {
     // If the user is not found in the database
-    echo "<script>alert('Password Reset link sent! Please check your inbox'); window.location.href='login.html';</script>";
+    echo "<script>alert('Password Reset link sent! Please check your inbox'); window.location.href='login.php';</script>";
 }
